@@ -37,13 +37,17 @@ const timerElement = document.getElementById('timer');
 const numbersElement = document.getElementById('mem-numbers');
 const inputSection = document.getElementById('div-input');
 const input = document.querySelector('input');
-const playButton = document.querySelector('button');
+const playButton = document.getElementById('play-btn');
+const verifyButton = document.getElementById('verify-btn');
 const messageElement = document.getElementById('message');
 
 let seconds = 3;
 timerElement.innerText = seconds;
 
-let memoryNumbers;
+const userInput = input.value;
+const verifyArray = [];
+
+
 
 // Creo evento al click
 playButton.addEventListener('click', () => {
@@ -65,17 +69,25 @@ playButton.addEventListener('click', () => {
     numbersElement.classList.remove('d-none');
 
     // Gli input diventano invisibili ad ogni click
-    inputSection.className = 'd-none';
+    inputSection.classList.add('d-none');
 
     // Creo 5 numeri casuali e diversi, con un valore massimo di 100
     const memoryNumbers = createRandomNumbers(100, 5);
-    numbersElement.innerText = memoryNumbers.join(' - ');
 
-    
+    // Aggiungo uno spazio tra un numero e l'altro
+    numbersElement.innerText = memoryNumbers.join(' - ');
 
     // I nemri scompaiono alla fine del countdown
     setTimeout(addClass, 3000);
     
     // gli input compaiono alla fine del countdown
     setTimeout(removeClass, 3000);
+
+    
+
+})
+
+verifyButton.addEventListener('click', () => {
+    verifyArray.push(userInput);
+    console.log(verifyArray);
 })
