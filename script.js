@@ -58,6 +58,7 @@ playButton.addEventListener('click', () => {
 
     // Creo 5 numeri casuali e diversi, con un valore massimo di 100
     const memoryNumbers = createRandomNumbers(100, 5);
+    memoryNumbers.join('-')
     numbersElement.innerText = memoryNumbers;
 
     // Gli input diventano invisibili ad ogni click
