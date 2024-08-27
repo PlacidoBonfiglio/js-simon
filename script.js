@@ -28,6 +28,11 @@ const removeClass = () => {
     inputSection.classList.remove('d-none');
 }
 
+// Arrow function per aggiungere la classe
+const addClass = () => {
+    numbersElement.classList.add('d-none');
+}
+
 const timerElement = document.getElementById('timer');
 const numbersElement = document.getElementById('mem-numbers');
 const inputSection = document.getElementById('div-input');
@@ -56,14 +61,21 @@ playButton.addEventListener('click', () => {
     // Modufuco la scritto all'interno del bottone
     playButton.innerText = 'Rigioca';
 
-    // Creo 5 numeri casuali e diversi, con un valore massimo di 100
-    const memoryNumbers = createRandomNumbers(100, 5);
-    memoryNumbers.join('-')
-    numbersElement.innerText = memoryNumbers;
+    // I numeri casuali comapiono ad ogni click
+    numbersElement.classList.remove('d-none');
 
     // Gli input diventano invisibili ad ogni click
     inputSection.className = 'd-none';
+
+    // Creo 5 numeri casuali e diversi, con un valore massimo di 100
+    const memoryNumbers = createRandomNumbers(100, 5);
+    numbersElement.innerText = memoryNumbers.join(' - ');
+
     
-    // gli input spuntano dopo i 30 secondi
+
+    // I nemri scompaiono alla fine del countdown
+    setTimeout(addClass, 3000);
+    
+    // gli input compaiono alla fine del countdown
     setTimeout(removeClass, 3000);
 })
