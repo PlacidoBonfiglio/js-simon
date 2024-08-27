@@ -23,6 +23,10 @@ const createRandomNumbers = (max, totalNumbers) => {
     return randomNumbers;
 }
 
+// Arrow function per rimuovere la classe
+const removeClass = () => {
+    inputSection.classList.remove('d-none');
+}
 
 const timerElement = document.getElementById('timer');
 const numbersElement = document.getElementById('mem-numbers');
@@ -36,19 +40,29 @@ timerElement.innerText = seconds;
 
 let memoryNumbers;
 
-//
+// Creo evento al click
 playButton.addEventListener('click', () => {
+
+    // Ogni volta che clicco il timer riparte da 30 secondi
+    seconds = 3;
+
     const cowntdown = setInterval(() => {
+        // Stampo in pagina il countdown
         timerElement.innerText = --seconds;
+        // Se il timer arriva a 0 allora si ferma
         if (seconds === 0) clearInterval(cowntdown);
     }, 1000)
 
     // Modufuco la scritto all'interno del bottone
-    playButton.innerText = 'Ricomincia';
+    playButton.innerText = 'Rigioca';
 
-    //
+    // Creo 5 numeri casuali e diversi, con un valore massimo di 100
     const memoryNumbers = createRandomNumbers(100, 5);
     numbersElement.innerText = memoryNumbers;
+
+    // Gli input diventano invisibili ad ogni click
+    inputSection.className = 'd-none';
     
-    
+    // gli input spuntano dopo i 30 secondi
+    setTimeout(removeClass, 3000);
 })
