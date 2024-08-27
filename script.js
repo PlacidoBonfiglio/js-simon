@@ -7,8 +7,20 @@ console.log('JS OK');
 // Stampo i numeri che l'utente ha indovinato
 
 
-const timer = document.getElementById('timer');
+const timerElement = document.getElementById('timer');
 const numbersElement = document.getElementById('mem-numbers');
 const inputSection = document.getElementById('div-input');
 const playButton = document.querySelector('button');
 const messageElement = document.getElementById('message');
+
+let seconds = 3;
+timerElement.innerText = seconds;
+
+playButton.addEventListener('click', () => {
+    const cowntdown = setInterval(() => {
+        timerElement.innerText = --seconds;
+        if (seconds === 0) clearInterval(cowntdown);
+    }, 1000)
+
+    
+})
