@@ -36,30 +36,30 @@ const addClass = () => {
 const timerElement = document.getElementById('timer');
 const numbersElement = document.getElementById('mem-numbers');
 const inputSection = document.getElementById('div-input');
-const input = document.querySelector('input');
+const inputFields = inputSection.querySelectorAll('input');
 const playButton = document.getElementById('play-btn');
 const verifyButton = document.getElementById('verify-btn');
 const messageElement = document.getElementById('message');
 
-let seconds = 3;
+// Secondi del countdown
+let seconds = 30;
+// Stampo in pagina la durata del countdown
 timerElement.innerText = seconds;
 
-const userInput = input.value;
-const verifyArray = [];
-
-
+// Raccolta dei numeri che scriverà l'utente negli input
+const userChoices = [];
 
 // Creo evento al click
 playButton.addEventListener('click', () => {
 
     // Ogni volta che clicco il timer riparte da 30 secondi
-    seconds = 3;
+    seconds = 30;
 
-    const cowntdown = setInterval(() => {
+    const countdown = setInterval(() => {
         // Stampo in pagina il countdown
         timerElement.innerText = --seconds;
         // Se il timer arriva a 0 allora si ferma
-        if (seconds === 0) clearInterval(cowntdown);
+        if (seconds === 0) clearInterval(countdown);
     }, 1000)
 
     // Modufuco la scritto all'interno del bottone
@@ -78,16 +78,48 @@ playButton.addEventListener('click', () => {
     numbersElement.innerText = memoryNumbers.join(' - ');
 
     // I nemri scompaiono alla fine del countdown
-    setTimeout(addClass, 3000);
-    
+    setTimeout(addClass, 30000);
+
     // gli input compaiono alla fine del countdown
-    setTimeout(removeClass, 3000);
+    setTimeout(removeClass, 30000);
 
-    
+    messageElement.innerHTML = 'In attesa del risultato...'
 
+    // Creo evento al bottone di verifica
+    verifyButton.addEventListener('click', () => {
+
+        messageElement.innerHTML = 'In attesa del risultato...'
+
+        // Prendo i valori degli input fields
+        for (let input of inputFields) {
+
+            // ParseInto i valori
+            const value = parseInt(input.value);
+
+            if (!isNaN(value) && !userChoices.includes(value)) {
+                // Pusho i valori ParseIntati all'array userChoices
+                userChoices.push(value);
+            }
+        }
+
+        // validation
+        if (userChoices.length !== inputFields.length) {
+            messageElement.innerHTML = 'Valori duplicati, mancanti o non validi';
+            return;
+        }
+
+        console.log(userChoices);
+
+        // Creo array dove verranno inseriti i numeri che l'utente indovina
+        const correctNumbers = [];
+        for (let choice of userChoices) {
+            if (memoryNumbers.includes(choice)) correctNumbers.push(choice);
+        }
+
+        // Stampo il risultato
+        messageElement.innerHTML = `Hai indovinato <strong>${correctNumbers.length}</strong> numeri! <strong>${correctNumbers}</strong>`;
+
+
+    })
 })
 
-verifyButton.addEventListener('click', () => {
-    verifyArray.push(userInput);
-    console.log(verifyArray);
-})
